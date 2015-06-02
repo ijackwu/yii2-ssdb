@@ -11,7 +11,7 @@ Yii 2.0 or above
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-    composer require "ijackwu/yii2-ssdb":"*"
+    composer require 'ijackwu/yii2-ssdb:dev-master'
 
 ##Configuration
 
