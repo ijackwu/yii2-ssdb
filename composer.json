@@ -3,7 +3,8 @@
 	"description": "SSDB - Yii SSDB PHP Client",
 	"homepage": "https://github.com/ijackwu/yii2-ssdb",
     "require": {
-        "yiisoft/yii2": "*"
+        "yiisoft/yii2": "*",
+        "ijackwu/yii2-ssdb": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2": "*"

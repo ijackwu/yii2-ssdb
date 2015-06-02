@@ -1,52 +1,31 @@
-phpssdb
-=======
+yii2-ssdb
+===========
 
-SSDB PHP Client
+Yii2-ssdb - a Yii 2.0 SSDB extension
 
-For More Details, See: [Official PHP Client Document](http://ssdb.io/docs/zh_cn/php/)
+##Requirements
 
-## Installation
+Yii 2.0 or above
 
-PHP 5.3+ is required. There is no need for additional libraries.
+##Installation
 
-Append dependency into composer.json
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-```
-	...
-	"require": {
-		...
-		"jackwu365/yii2-ssdb": "master"
-	}
-	...
-```
+    composer.phar require "ijackwu/yii2-ssdb:dev-master":"*"
 
-## Basic Using
+##Configuration
+
+To use this extension, you have to configure the Connection class in your application configuration:
 
 ```php
-<?php
-
-$ssdb = new SSDB\Client('127.0.0.1', 8888);
-
-var_dump($ssdb->set('test', time()));
-
-echo $ssdb->get('test') . "\n";
-
-var_dump($ssdb->del('test'));
-
-var_dump($ssdb->get('test'));
-
-```
-## SessionHandler
-
-Use SSDB\SessionHandler to save session through SSDB.
-
-```php
-<?php
-
-ini_set('session.save_path', 'tcp://127.0.0.1:8888/');
-ini_set('session.gc_maxlifetime', 3600);
-
-$sessionHandler = new SSDB\SessionHandler();
-
-session_set_save_handler($sessionHandler);
+return [
+    //....
+    'components' => [
+        'redis' => [
+            'class' => 'ijackwu\ssdb\Connection',
+            'host' => 'localhost',
+            'port' => 8888,
+        ],
+    ]
+];
 ```
