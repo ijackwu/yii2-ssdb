@@ -14,7 +14,7 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"ijackwu\\ssdb\\": "yii2-ssdb/src"
+			"ijackwu\\ssdb\\": "yii2-ssdb/ssdb"
 		}
 	},
 	"require": {
