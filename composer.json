@@ -1,23 +1,23 @@
 {
-	"name": "jackwu/yii2-ssdb",
+    "name": "ijackwu/yii2-ssdb",
 	"description": "SSDB - Yii SSDB PHP Client",
-	"keywords": ["yii2", "ssdb"],
-	"homepage": "https://github.com/jackwu365/yii2-ssdb",
-	"type": "yii2-extension",
-	"license": "BSD-3-Clause",
-	"authors": [
-		{
-			"name": "jackwu",
-			"email": "xiaowu365@gmail.com",
-			"homepage": "http://kdkd8.com"
-		}
-	],
+	"homepage": "https://github.com/ijackwu/yii2-ssdb",
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "require-dev": {
+        "yiisoft/yii2": "*"
+    },
+    "license": "MIT",
 	"autoload": {
 		"psr-4": {
 			"ijackwu\\ssdb\\": "yii2-ssdb/ssdb"
 		}
 	},
-	"require": {
-		"yiisoft/yii2": "*"
-	}
+    "authors": [
+        {
+            "name": "Jack Wu",
+            "email": "xiaowu365@gmail.com"
+        }
+    ]
 }
