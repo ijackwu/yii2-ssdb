@@ -32,4 +32,4 @@ return [
 
 ##Links
 
-[SSDB homepage](http://ssdb.io/)
+[SSDB](http://ssdb.io/)
