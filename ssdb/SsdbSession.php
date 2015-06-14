@@ -68,8 +68,8 @@ class SsdbSession extends Session {
 			$this->ssdb = \Yii::createObject($this->ssdb);
 		}
 
-		if (!$this->ssdb instanceof Connect) {
-			throw new InvalidConfigException("Session::ssdb must be either a Ssdb connect instance or the application component ID of a ssdb connect.");
+		if (!$this->ssdb instanceof Connection) {
+			throw new InvalidConfigException("Session::ssdb must be either a Ssdb Connection instance or the application component ID of a ssdb Connection.");
 		}
 		if ($this->key_prefix === null) {
 			$this->key_prefix = substr(md5(Yii::$app->id), 0, 5);

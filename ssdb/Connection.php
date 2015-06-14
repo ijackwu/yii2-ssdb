@@ -11,25 +11,25 @@ namespace ijackwu\ssdb;
 use yii\base\Component;
 
 /**
- * Class Connect
+ * Class Connection
  * @package yii\SSDB
  */
-class Connect extends Component
+class Connection extends Component
 {
 	private $debug = false;
 	public $sock = null;
 	private $_closed = false;
 	private $recv_buf = '';
-	private $_easy = false;
 	public $last_resp = null;
 
 	public $host = '127.0.0.1';
 	public $port = 8888;
 	public $timeout_ms=2000;
-	public $easy = false;
+	public $easy = true;
 
 
-	public function init(){
+	public function init()
+	{
 		parent::init();
 
 		$timeout_f = (float)$this->timeout_ms/1000;
@@ -56,7 +56,7 @@ class Connect extends Component
 	 * when response is not ok(not_found, etc)
 	 */
 	public function easy(){
-		$this->_easy = true;
+		$this->easy = true;
 	}
 
 	public function close(){
@@ -137,7 +137,7 @@ class Connect extends Component
 				$resp = $this->recv_resp($cmd, $params);
 			}
 		}catch(Exception $e){
-			if($this->_easy){
+			if($this->easy){
 				throw $e;
 			}else{
 				$resp = new Response('error', $e->getMessage());
@@ -155,7 +155,7 @@ class Connect extends Component
 
 	private function check_easy_resp($cmd, $resp){
 		$this->last_resp = $resp;
-		if($this->_easy){
+		if($this->easy){
 			if($resp->not_found()){
 				return NULL;
 			}else if(!$resp->ok() && !is_array($resp->data)){
