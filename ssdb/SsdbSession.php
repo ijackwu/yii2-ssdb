@@ -11,14 +11,14 @@ namespace ijackwu\ssdb;
 use yii\web\Session;
 
 /*
- *  * To use redis Session as the session application component, configure the application as follows,
+ *  * To use ssdb Session as the session application component, configure the application as follows,
  *
  * ~~~
  * [
  *     'components' => [
  *         'session' => [
  *             'class' => 'ijackwu\ssdb\SsdbSession',
- *             'redis' => [
+ *             'ssdb' => [
  *                 'host' => 'localhost',
  *                 'port' => 8888,
  *                 'easy' => true
@@ -35,7 +35,7 @@ use yii\web\Session;
  *     'components' => [
  *         'session' => [
  *             'class' => 'ijackwu\ssdb\SsdbSession',
- *             // 'ssdb' => 'ssdb' // id of the connection application component
+ *             // 'ssdb' => 'ssdb' // id of the connect application component
  *         ],
  *     ],
  * ]
@@ -68,7 +68,7 @@ class SsdbSession extends Session {
 		}
 
 		if (!$this->ssdb instanceof Connect) {
-			throw new InvalidConfigException("Session::ssdb must be either a Ssdb connection instance or the application component ID of a ssdb connection.");
+			throw new InvalidConfigException("Session::ssdb must be either a Ssdb connect instance or the application component ID of a ssdb connect.");
 		}
 		if ($this->key_prefix === null) {
 			$this->key_prefix = substr(md5(Yii::$app->id), 0, 5);
@@ -104,7 +104,7 @@ class SsdbSession extends Session {
 	 */
 	public function writeSession($id, $data)
 	{
-		return (bool) $this->ssdb->set($this->calculateKey($id), $data, $this->getTimeout());
+		return (bool) $this->ssdb->setx($this->calculateKey($id), $data, $this->getTimeout());
 	}
 	/**
 	 * Session destroy handler.
