@@ -56,7 +56,8 @@ class SsdbSession extends Session {
 	public $ssdb = 'ssdb';
 
 
-	public function init() {
+	public function init()
+	{
 		parent::init();
 		if (is_string($this->ssdb)) {
 			$this->ssdb = \Yii::$app->get($this->ssdb);
