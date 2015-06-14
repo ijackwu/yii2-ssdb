@@ -4,6 +4,35 @@
  *
  * @author Jack.wu <xiaowu365@gmail.com>
  * @create_time 2015-06-14 12:24
+ *
+ *  * To use Ssdb Cache as the cache application component, configure the application as follows,
+ *
+ * ~~~
+ * [
+ *     'components' => [
+ *         'cache' => [
+ *             'class' => 'ijackwu\ssdb\Cache',
+ *             'redis' => [
+ *                 'host' => 'localhost',
+ *                 'port' => 888,
+ *             ]
+ *         ],
+ *     ],
+ * ]
+ * ~~~
+ *
+ * Or if you have configured the Ssdb [[Connection]] as an application component, the following is sufficient:
+ *
+ * ~~~
+ * [
+ *     'components' => [
+ *         'cache' => [
+ *             'class' => 'ijackwu\ssdb\Cache',
+ *             // 'ssdb' => 'ssdb' // id of the connection application component
+ *         ],
+ *     ],
+ * ]
+ * ~~~
  */
 
 
