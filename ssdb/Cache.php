@@ -14,7 +14,7 @@
  *             'class' => 'ijackwu\ssdb\Cache',
  *             'redis' => [
  *                 'host' => 'localhost',
- *                 'port' => 888,
+ *                 'port' => 8888,
  *             ]
  *         ],
  *     ],
@@ -38,7 +38,7 @@
 
 namespace ijackwu\ssdb;
 
-class SsdbCache extends \yii\caching\Cache
+class Cache extends \yii\caching\Cache
 {
 	/**
 	 *
