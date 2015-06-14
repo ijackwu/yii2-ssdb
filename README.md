@@ -21,7 +21,7 @@ To use this extension, you have to configure the Connection class in your applic
 return [
     //....
     'components' => [
-        'redis' => [
+        'ssdb' => [
             'class' => 'ijackwu\ssdb\Connection',
             'host' => 'localhost',
             'port' => 8888,
