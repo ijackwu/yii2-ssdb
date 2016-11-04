@@ -74,7 +74,7 @@ class Cache extends \yii\caching\Cache
 		}
 
 		if ($this->cache_keys_hash === "") {
-			$this->$cache_keys_hash = substr(md5(Yii::$app->id), 0, 5) . "___";
+			$this->cache_keys_hash = substr(md5(Yii::$app->id), 0, 5) . "___";
 		}
 
 	}
