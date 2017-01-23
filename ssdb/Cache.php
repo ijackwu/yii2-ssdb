@@ -12,7 +12,7 @@
  *     'components' => [
  *         'cache' => [
  *             'class' => 'ijackwu\ssdb\Cache',
- *             'redis' => [
+ *             'ssdb' => [
  *                 'host' => 'localhost',
  *                 'port' => 8888,
  *             ]
