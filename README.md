@@ -26,9 +26,16 @@ return [
             'host' => 'localhost',
             'port' => 8888,
         ],
+        'cache' => [
+            'class' => 'ijackwu\ssdb\Cache',
+        ],
+        
     ]
 ];
 ```
+
+
+
 
 ##Links
 
