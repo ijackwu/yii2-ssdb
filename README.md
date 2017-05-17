@@ -24,6 +24,9 @@ return [
     'components' => [
         'ssdb' => [
             'class' => 'ijackwu\ssdb\Connection',
+            // or 
+            // 'class' => 'ijackwu\ssdb\FastConnection',
+            // @see https://github.com/jonnywang/phpssdb
             'host' => 'localhost',
             'port' => 8888,
             // 'passwd' => 'passwd',
