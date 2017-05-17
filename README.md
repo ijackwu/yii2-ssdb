@@ -1,19 +1,20 @@
-yii2-ssdb
-===========
+# yii2-ssdb #
 
 Yii2-ssdb - a Yii 2.0 SSDB extension
 
-##Requirements
+## Requirements ##
 
 Yii 2.0 or above
 
-##Installation
+## Installation ##
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+```
+php composer.phar require 'ijackwu/yii2-ssdb:dev-master'
+```
 
-    composer require 'ijackwu/yii2-ssdb:dev-master'
 
-##Configuration
+## Configuration ##
 
 To use this extension, you have to configure the Connection class in your application configuration:
 
@@ -25,9 +26,18 @@ return [
             'class' => 'ijackwu\ssdb\Connection',
             'host' => 'localhost',
             'port' => 8888,
+            // 'passwd' => 'passwd',
         ],
+        
+        // cache
         'cache' => [
             'class' => 'ijackwu\ssdb\Cache',
+        ],
+        
+        // session
+        'session' => [
+           // .....
+           'class' => 'ijackwu\ssdb\SsdbSession',
         ],
         
     ]
@@ -37,6 +47,6 @@ return [
 
 
 
-##Links
+## Links ##
 
 [SSDB](http://ssdb.io/)

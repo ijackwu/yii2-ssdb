@@ -42,88 +42,100 @@ use yii\web\Session;
  * ~~~
  */
 
-class SsdbSession extends Session {
+class SsdbSession extends Session
+{
 
-	/**
-	 * @var string
-	 */
-	public $key_prefix = 'ssdb_session_';
+    /**
+     * @var string
+     */
+    public $key_prefix = 'ssdb_session_';
 
-	/**
-	 * 
-	 * @var Ssdb
-	 */
-	public $ssdb = 'ssdb';
+    /**
+     *
+     * @var Ssdb
+     */
+    public $ssdb = 'ssdb';
+
+    /**
+     * @var
+     */
+    private $ssdbHandle;
 
 
-	public function init()
-	{
-		parent::init();
-		if (is_string($this->ssdb)) {
-			$this->ssdb = \Yii::$app->get($this->ssdb);
-		} elseif (is_array($this->ssdb)) {
-			if (!isset($this->ssdb['class'])) {
-				$this->ssdb['class'] = Connection::className();
-			}
-			$this->ssdb = \Yii::createObject($this->ssdb);
-		}
+    public function init()
+    {
+        parent::init();
 
-		if (!$this->ssdb instanceof Connection) {
-			throw new InvalidConfigException("Session::ssdb must be either a Ssdb Connection instance or the application component ID of a ssdb Connection.");
-		}
-		if ($this->key_prefix === null) {
-			$this->key_prefix = substr(md5(Yii::$app->id), 0, 5);
-		}
-	}
+        if (is_string($this->ssdb)) {
+            $this->ssdbHandle = \Yii::$app->get($this->ssdb);
+        } elseif (is_array($this->ssdb)) {
+            if (!isset($this->ssdb['class'])) {
+                $this->ssdb['class'] = 'ijackwu\ssdb\Connection';
+            }
+            $this->ssdbHandle = \Yii::createObject($this->ssdb);
+        }
 
-	/**
-	 * Returns a value indicating whether to use custom session storage.
-	 * This method overrides the parent implementation and always returns true.
-	 * @return boolean whether to use custom storage.
-	 */
-	public function getUseCustomStorage()
-	{
-		return true;
-	}
-	/**
-	 * Session read handler.
-	 * Do not call this method directly.
-	 * @param string $id session ID
-	 * @return string the session data
-	 */
-	public function readSession($id)
-	{
-		$data = $this->ssdb->get($this->calculateKey($id));
-		return $data === false ? '' : $data;
-	}
-	/**
-	 * Session write handler.
-	 * Do not call this method directly.
-	 * @param string $id session ID
-	 * @param string $data session data
-	 * @return boolean whether session write is successful
-	 */
-	public function writeSession($id, $data)
-	{
-		return (bool) $this->ssdb->setx($this->calculateKey($id), $data, $this->getTimeout());
-	}
-	/**
-	 * Session destroy handler.
-	 * Do not call this method directly.
-	 * @param string $id session ID
-	 * @return boolean whether session is destroyed successfully
-	 */
-	public function destroySession($id)
-	{
-		return (bool) $this->ssdb->del($this->calculateKey($id));
-	}
-	/**
-	 * Generates a unique key used for storing session data in cache.
-	 * @param string $id session variable name
-	 * @return string a safe cache key associated with the session variable name
-	 */
-	protected function calculateKey($id)
-	{
-		return $this->key_prefix . $id;
-	}
+        if (!$this->ssdbHandle instanceof Connection && !$this->ssdbHandle instanceof FastConnection) {
+            throw new Exception("Session::ssdb must be either a Ssdb Connection instance or the application component ID of a ssdb Connection.");
+        }
+
+        if ($this->key_prefix === null) {
+            $this->key_prefix = substr(md5(Yii::$app->id), 0, 5);
+        }
+    }
+
+    /**
+     * Returns a value indicating whether to use custom session storage.
+     * This method overrides the parent implementation and always returns true.
+     * @return boolean whether to use custom storage.
+     */
+    public function getUseCustomStorage()
+    {
+        return true;
+    }
+
+    /**
+     * Session read handler.
+     * Do not call this method directly.
+     * @param string $id session ID
+     * @return string the session data
+     */
+    public function readSession($id)
+    {
+        $data = $this->ssdbHandle->get($this->calculateKey($id));
+        return $data === false ? '' : $data;
+    }
+
+    /**
+     * Session write handler.
+     * Do not call this method directly.
+     * @param string $id session ID
+     * @param string $data session data
+     * @return boolean whether session write is successful
+     */
+    public function writeSession($id, $data)
+    {
+        return (bool)$this->ssdbHandle->setx($this->calculateKey($id), $data, $this->getTimeout());
+    }
+
+    /**
+     * Session destroy handler.
+     * Do not call this method directly.
+     * @param string $id session ID
+     * @return boolean whether session is destroyed successfully
+     */
+    public function destroySession($id)
+    {
+        return (bool)$this->ssdbHandle->del($this->calculateKey($id));
+    }
+
+    /**
+     * Generates a unique key used for storing session data in cache.
+     * @param string $id session variable name
+     * @return string a safe cache key associated with the session variable name
+     */
+    protected function calculateKey($id)
+    {
+        return $this->key_prefix . $id;
+    }
 }
