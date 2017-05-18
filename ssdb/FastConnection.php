@@ -40,12 +40,14 @@ class FastConnection extends Component
             if ($this->persistentId && $this->retryInterval) {
                 $this->ssdbHandle->connect($this->host, $this->port, $this->timeout, $this->persistentId, $this->retryInterval);
             } else {
-                $this->ssdbHandle->connect($this->host, $this->port, $this->timeout);
+                $this->ssdbHandle->connect($this->host, $this->port);
             }
 
             if ($this->password) {
                 $this->auth($this->password);
             }
+
+            $this->ssdbHandle->option(\SSDB::OPT_SERIALIZER, \SSDB::SERIALIZER_PHP);
         }
     }
 
@@ -158,7 +160,7 @@ class FastConnection extends Component
      */
     public function setx($key, $value, $expire = null)
     {
-        return $this->setx($key, $value, $expire);
+        return $this->set($key, $value, $expire);
     }
 
     /**
