@@ -158,7 +158,7 @@ class FastConnection extends Component
      */
     public function setx($key, $value, $expire = null)
     {
-        return $this->set($key, $value, $expire);
+        return $this->setx($key, $value, $expire);
     }
 
     /**
@@ -176,6 +176,11 @@ class FastConnection extends Component
     public function get($key)
     {
         return $this->ssdbHandle->get($key);
+    }
+
+    public function getset($key, $val = "")
+    {
+        return $this->ssdbHandle->getset($key, $val);
     }
 
     /**
@@ -203,7 +208,7 @@ class FastConnection extends Component
      */
     public function exists($key)
     {
-        return $this->ssdbHandle->incr($key);
+        return $this->ssdbHandle->exists($key);
     }
 
     /**
@@ -285,7 +290,7 @@ class FastConnection extends Component
      */
     public function substr($key, $start = null, $size = null)
     {
-        return $this->ssdbHandle->countbit($key, $start, $size);
+        return $this->ssdbHandle->substr($key, $start, $size);
     }
 
     /**
@@ -407,7 +412,7 @@ class FastConnection extends Component
      */
     public function zlist($keyStart = "", $endEnd = "", $limit)
     {
-        return $this->ssdbHandle->zlist($keyStart = "", $endEnd = "", $limit);
+        return $this->ssdbHandle->zlist($keyStart, $endEnd, $limit);
     }
 
     /**
@@ -416,9 +421,9 @@ class FastConnection extends Component
      * @param $limit
      * @return mixed
      */
-    public function rzlist($keyStart = "", $endEnd = "", $limit)
+    public function zrlist($keyStart = "", $endEnd = "", $limit)
     {
-        return $this->ssdbHandle->rzlist($keyStart, $endEnd, $limit);
+        return $this->ssdbHandle->zrlist($keyStart, $endEnd, $limit);
     }
 
     /**
@@ -517,9 +522,9 @@ class FastConnection extends Component
      * @param $key
      * @return mixed
      */
-    public function zlear($key)
+    public function zclear($key)
     {
-        return $this->ssdbHandle->zlear($key);
+        return $this->ssdbHandle->zclear($key);
     }
 
     /**
@@ -676,9 +681,9 @@ class FastConnection extends Component
         return $this->ssdbHandle->hlist($hashKey, $keyStartName, $keyEndName);
     }
 
-    public function rhlist($hashKey, $keyStartName = "", $keyEndName = "")
+    public function hrlist($hashKey, $keyStartName = "", $keyEndName = "")
     {
-        return $this->ssdbHandle->rhlist($hashKey, $keyStartName, $keyEndName);
+        return $this->ssdbHandle->hrlist($hashKey, $keyStartName, $keyEndName);
     }
 
     public function hkeys($hashKey, $keyStartName = "", $keyEndName = "", $limit)
@@ -701,9 +706,9 @@ class FastConnection extends Component
         return $this->ssdbHandle->hscan($hashKey, $keyStartName, $keyEndName);
     }
 
-    public function rhscan($hashKey, $keyStartName = "", $keyEndName = "")
+    public function hrscan($hashKey, $keyStartName = "", $keyEndName = "")
     {
-        return $this->ssdbHandle->rhscan($hashKey, $keyStartName, $keyEndName);
+        return $this->ssdbHandle->hrscan($hashKey, $keyStartName, $keyEndName);
     }
 
     public function multi_hset($hashKey, $keyArrName)
@@ -713,7 +718,7 @@ class FastConnection extends Component
 
     public function multi_hget($hashKey, $keyArr)
     {
-        return $this->ssdbHandle->multi_gset($hashKey, $keyArr);
+        return $this->ssdbHandle->multi_hget($hashKey, $keyArr);
     }
 
     public function multi_hdel($hashKey, $keyArr)
@@ -731,9 +736,9 @@ class FastConnection extends Component
         return $this->ssdbHandle->qlist($hashKey, $keyStartName, $keyEndName, $limit);
     }
 
-    public function rqlist($hashKey, $keyStartName = "", $keyEndName = "", $limit)
+    public function qrlist($hashKey, $keyStartName = "", $keyEndName = "", $limit)
     {
-        return $this->ssdbHandle->rqlist($hashKey, $keyStartName, $keyEndName, $limit);
+        return $this->ssdbHandle->qrlist($hashKey, $keyStartName, $keyEndName, $limit);
     }
 
     public function qclear($hashKey)
@@ -791,6 +796,17 @@ class FastConnection extends Component
         return $this->ssdbHandle->qset($key, $offset, $value);
     }
 
+    public function qrange($key, $offset = 0, $limit)
+    {
+        return $this->ssdbHandle->qrange($key, $offset, $limit);
+    }
+
+    public function qslice($key, $start, $end)
+    {
+        return $this->ssdbHandle->qslice($key, $start, $end);
+    }
+
+
     public function qtrim_front($key, $limit = 1)
     {
         return $this->ssdbHandle->qtrim_front($key, $limit);
@@ -822,9 +838,9 @@ class FastConnection extends Component
     public function geo_radius($key, $latitude, $longitude, $radius_meters, $return_limit = null, $zscan_limit = 2000)
     {
         if ($return_limit)
-            return $this->ssdbHandle->geo_radius($key, $latitude, $longitude, $radius_meters, $return_limit , $zscan_limit);
+            return $this->ssdbHandle->geo_radius($key, $latitude, $longitude, $radius_meters, $return_limit, $zscan_limit);
         else
-            return $this->ssdbHandle->geo_radius($key, $latitude, $longitude,$radius_meters);
+            return $this->ssdbHandle->geo_radius($key, $latitude, $longitude, $radius_meters);
     }
 
     public function geo_del($key, $member)
@@ -837,7 +853,7 @@ class FastConnection extends Component
         return $this->ssdbHandle->geo_clear($key);
     }
 
-    public function geo_distance($key,$member, $member2 )
+    public function geo_distance($key, $member, $member2)
     {
         return $this->ssdbHandle->geo_distance($key, $member, $member2);
     }
