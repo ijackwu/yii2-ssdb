@@ -29,7 +29,7 @@ return [
             // @see https://github.com/jonnywang/phpssdb
             'host' => 'localhost',
             'port' => 8888,
-            // 'passwd' => 'passwd',
+            // 'password' => 'password',
         ],
         
         // cache
