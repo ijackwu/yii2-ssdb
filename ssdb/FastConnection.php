@@ -465,7 +465,7 @@ class FastConnection extends Component
      * @param $limit
      * @return mixed
      */
-    public function rzscan($key, $memberStartName, $memberStartScore, $memberEndScore, $limit)
+    public function zrscan($key, $memberStartName, $memberStartScore, $memberEndScore, $limit)
     {
         return $this->ssdbHandle->zrscan($key, $memberStartName, $memberStartScore, $memberEndScore, $limit);
     }
@@ -689,6 +689,11 @@ class FastConnection extends Component
     public function hgetall($hashKey)
     {
         return $this->ssdbHandle->hgetall($hashKey);
+    }
+
+    public function hclear($hashKey)
+    {
+        return $this->ssdbHandle->hclear($hashKey);
     }
 
     public function hscan($hashKey, $keyStartName = "", $keyEndName = "")
