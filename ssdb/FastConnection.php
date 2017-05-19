@@ -40,7 +40,7 @@ class FastConnection extends Component
             if ($this->persistentId && $this->retryInterval) {
                 $this->ssdbHandle->connect($this->host, $this->port, $this->timeout, $this->persistentId, $this->retryInterval);
             } else {
-                $this->ssdbHandle->connect($this->host, $this->port);
+                $this->ssdbHandle->connect($this->host, $this->port, $this->timeout);
             }
 
             if ($this->password) {
